@@ -1,90 +1,30 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <title> mastermayank testing </title>
-
-  <script src="./jquery.min.js"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajax Example</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  <!-- Use CDN for jQuery -->
 </head>
-
 <body>
 
-  <div id='output-box'></div>
+  <div id="result"></div>
 
-  <!-- ( testing ) -->
   <script>
-
-    $(document).ready(function () {
-
-      console.log('i am on')
-
-      $("$output-box").html(` <h1> ajax </h1> `)
-
+    $(document).ready(function() {
+      // Simple Ajax GET request
       $.ajax({
-          url :  `https://jsonplaceholder.typicode.com/users`,
-          type : 'GET',
-          beforeSend : () => {
-      
-              $("#output-box").html(`
-                  <div class="spinner-border" role="status" id='loader'>
-                      <span class="visually-hidden">Loading...</span>
-                  </div>
-              `)
-          },
-          success : (data) => {
-      
-              for (let i = 0; i < data.length; i++) 
-              {
-                  $.each(data[i], (key,value) => {
-      
-                      if (key == 'address')
-                      {
-                          let address = value
-      
-                          $.each(address, (key,value) => {
-                              
-                              if (key == 'geo')
-                              {
-                                  let geo = value
-      
-                                  $.each(geo, (key, value) => {
-                                      $("#output-box").append(`<div class='row'> <div class='col'> ${key} </div> <div class='col text-end'>${value}</div> </div>`)
-                                  })
-                              }
-                              else
-                              {
-                                  $("#output-box").append(`<div class='row'> <div class='col'> ${key} </div> <div class='col text-end'>${value}</div> </div>`)
-                              }
-                          })   
-                      }
-                      else if (key == 'company')
-                      {
-                          let company = value
-      
-                          $.each(company, (key,value) => {
-      
-                              $("#output-box").append(`<div class='row'> <div class='col'> ${key} </div> <div class='col text-end'>${value}</div> </div>`)
-                          })
-                      }
-                      else
-                      {
-                          $("#output-box").append(`<div class='row'> <div class='col'> ${key} </div> <div class='col text-end'>${value}</div> </div>`)
-                      }
-                  })
-              }
-          },
-          error : (error) => {
-      
-              $("#output-box").append(`<div class='alert alert-danger'> data fetch error : ${error} </div>`)
-          },
-          complete : () => {
-      
-              $("#output-box #loader").css('display','none')
-          }
-          })
-
+        url: 'https://api.github.com/users/octocat',  // Example: Fetch GitHub user data
+        type: 'GET',
+        success: function(data) {
+          $('#result').html(`<h3>User: ${data.login}</h3><p>${data.bio}</p>`);
+        },
+        error: function(error) {
+          $('#result').html('<p>Error fetching data!</p>');
+        }
+      });
+    });
   </script>
 
 </body>
-
 </html>
