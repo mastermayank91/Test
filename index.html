@@ -14,10 +14,11 @@
     $(document).ready(function() {
       // Simple Ajax GET request
       $.ajax({
-        url: 'https://api.github.com/users/octocat',  // Example: Fetch GitHub user data
+        url: 'https://mayankdevil.github.io/Indardanus/color_API.json',  // Example: Fetch GitHub user data
         type: 'GET',
         success: function(data) {
-          $('#result').html(`<h3>User: ${data.login}</h3><p>${data.bio}</p>`);
+          console.log(data)
+          $('#result').html(`<pre> ${data} </pre>`);
         },
         error: function(error) {
           $('#result').html('<p>Error fetching data!</p>');
